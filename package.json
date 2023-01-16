@@ -1,0 +1,17 @@
+{
+  "name": "generator-characters",
+  "version": "1.0.0",
+  "description": "Api que realiza creacion de personajes con sus historias",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Hola, este es mi primer ejercicio con Node en el mejor Bootcamp de programación del mundo.\""
+  },
+  "keywords": [],
+  "author": "Emmanuel Correa",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
