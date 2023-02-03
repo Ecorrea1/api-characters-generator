@@ -1,26 +1,22 @@
 const express = require('express');
 const path = require('path');
 require('dotenv').config();
-
+const cors = require('cors');
 const app = express();
 
-app.use(express.json());
+// Settings
+app.set('port', process.env.PORT || 3000 );
+
+app.use( express.json() );
 // Configurar cabeceras y cors
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-});
-// Node server
-const server = require('http').createServer( app );
+app.use( cors() );
 
-//Path publicp
-const publicPath = path.resolve(__dirname, 'public');
-app.use(express.static( publicPath ));
+//Path publico
+app.use( express.static( path.resolve(__dirname, 'public') ) );
 
-server.listen( process.env.PORT, (err ) => {
-    if ( err ) throw new Error( err );
-    console.log( 'Servidor corriendo en puerto: ', process.env.PORT );
-})
+//Rutas
+app.use('/api/login', require('./routers/users.router'));
+app.use('/api/chatgpt', require('./routers/chatgpt.router'));
+
+// Starting the server
+app.listen( app.get('port'), () => console.log(`Server on port ${ app.get('port') }`));
